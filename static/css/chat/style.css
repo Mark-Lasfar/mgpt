@@ -1,0 +1,23 @@
+
+
+#chatArea {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#chatBox {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#footerForm {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.hidden {
+  display: none !important;
+}

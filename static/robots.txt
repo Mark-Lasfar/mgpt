@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+Allow: /static/robots.txt
+Allow: /static/sitemap.xml
+Allow: /static/google97468ef1f6b6e804.html
+Allow: /static/favicon.ico
+Allow: /static/css/
+Allow: /static/images/
+Allow: /static/js/
+Allow: /static/
+
+
+Sitemap: https://mgzon-mgzon-app.hf.space/static/sitemap.xml
