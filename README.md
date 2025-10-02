@@ -14,6 +14,8 @@ This project is ideal for developers building hybrid mobile/web AI chatbots, wit
 
 ![LOGO MGPT](static/images/mg.png)
 
+![Demo Live](static/video/mg.gif)
+
 
 - **Multi-Modal Input**: Handle text messages, voice recordings (via Capacitor plugins), audio files, and image uploads.
 - **Offline Support**: Use local AI models for text generation and audio transcription when offline. Models are preloaded and cached for efficiency.
