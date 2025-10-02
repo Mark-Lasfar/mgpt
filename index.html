@@ -511,28 +511,30 @@
     </style>
 
     <!-- JSON-LD -->
-    <script type="application/ld+json">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "Person",
-      "name": "Mark Elasfar",
-      "url": "https://mark-elasfar.web.app/",
+      "@id": "https://mgzonai.vercel.app/profile#person",
+      "name": "Mark Al-Asfar",
+      "url": "https://mgzonai.vercel.app/profile",
       "image": [
         "https://mark-lasfar.github.io/ofline-chat/images/mac.png",
         "https://mark-lasfar.github.io/ofline-chat/images/ibrahim_elasfar.png"
       ],
+      "jobTitle": "Full Stack Developer & AI Engineer",
+      "worksFor": {
+        "@id": "https://mgzonai.vercel.app/#organization"
+      },
+      "description": "Mark Al-Asfar is a developer and founder of MGZon AI, a project focused on offline AI chat and Arabic TTS technologies.",
       "sameAs": [
         "https://github.com/Mark-Lasfar",
         "https://x.com/mgz0n",
-        "https://www.linkedin.com/in/ibrahim-elasfar/"
+        "https://www.linkedin.com/in/ibrahim-elasfar/",
+        "https://mark-elasfar.web.app/"
       ],
-      "jobTitle": "Full Stack Developer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Mgzon AI",
-        "url": "https://mgzonai.vercel.app/"
-      },
-      "description": "Mark Elasfar is a developer and founder of Mgzon AI, a project focused on offline AI chat and Arabic TTS technologies.",
       "knowsAbout": [
         "AI",
         "TTS",
@@ -542,34 +544,49 @@
         "JavaScript",
         "Python"
       ],
-      "alumniOf": "Mgzon AI Academy",
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "MGZon AI Academy"
+      },
       "inLanguage": "en"
-    }
-    </script>
-    <script type="application/ld+json">
+    },
     {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "MGZon Chatbot",
+      "@type": "Organization",
+      "@id": "https://mgzonai.vercel.app/#organization",
+      "name": "MGZon AI",
       "url": "https://mgzonai.vercel.app/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://mgzonai.vercel.app/static/images/mg.svg"
+      },
+      "description": "MGZon is an AI-powered chatbot and platform focused on offline AI, code generation, and Arabic TTS technologies.",
+      "sameAs": [
+        "https://x.com/mgz0n"
+      ],
+      "founder": {
+        "@id": "https://mgzonai.vercel.app/profile#person"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mgzonai.vercel.app/#website",
+      "url": "https://mgzonai.vercel.app/",
+      "name": "MGZon Chatbot",
       "description": "MGZon Chatbot by Mark Al-Asfar: Your AI assistant for code generation, real-time web search, and e-commerce solutions.",
-      "keywords": ["MGZon Chatbot", "AI chatbot", "Code generation AI", "E-commerce AI solutions", "Mark Al-Asfar", "AI assistant for developers", "FastAPI chatbot", "Real-time web search AI", "MGZon AI", "Python AI chatbot", "AI for coding", "E-commerce automation", "Hugging Face AI", "2025 AI trends", "chatgpt", "grok", "deepseek", "text generation"],
+      "publisher": {
+        "@id": "https://mgzonai.vercel.app/#organization"
+      },
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://mgzonai.vercel.app/?q={search_term_string}",
         "query-input": "required name=search_term_string"
       },
-      "publisher": {
-        "@type": "Organization",
-        "name": "MGZon AI",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "/static/images/mg.svg"
-        }
-      },
       "inLanguage": "en"
     }
-    </script>
+  ]
+}
+</script>
+
 </head>
 <body>
     <div id="particles-js"></div>
@@ -694,7 +711,7 @@
                 </div>
             </div>
             <div class="flex justify-center gap-6 mb-4">
-                <a href="https://github.com/Mark-Lasfar/MGZon" class="text-2xl text-white hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-github"></i></a>
+                <a href="https://github.com/Mark-Lasfar/mgpt" class="text-2xl text-white hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-github"></i></a>
                 <a href="https://x.com/MGZon" class="text-2xl text-white hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-twitter"></i></a>
                 <a href="https://www.facebook.com/people/Mark-Al-Asfar/pfbid02GMisUQ8AqWkNZjoKtWFHH1tbdHuVscN1cjcFnZWy9HkRaAsmanBfT6mhySAyqpg4l/" class="text-2xl text-white hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-facebook"></i></a>
             </div>
