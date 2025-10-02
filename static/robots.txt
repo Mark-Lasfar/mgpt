@@ -10,4 +10,4 @@ Allow: /static/js/
 Allow: /static/
 
 
-Sitemap: https://mgzonai.vercel.app/static/sitemap.xml
+Sitemap: https://mgzonai.vercel.app/sitemap.xml
