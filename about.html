@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
   <meta name="google-site-verification" content="ihRtUOZ7v9-bwDkIJ5lZsV00REp5nNgs9e9WfogXOvI" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/static/sitemap.xml" />
 
   <meta name="description" content="Learn about MGZon AI, an innovative AI-powered platform for e-commerce and code generation. Discover our mission, technologies, and achievements.">
   <meta name="keywords" content="MGZon AI, AI chatbot, e-commerce, code generation, technology, achievements, MGZon, E-commerce chatbot, 5G, 6G, 2025 AI trends, 2026 trends, adaptive UI">
   <meta name="author" content="MGZon AI Team">
   <meta name="robots" content="index, follow">
   <title data-translate="title">About MGZon AI – Adaptive Horizons</title>
-  <link rel="canonical" href="https://mgzon-mgzon-app.hf.space/about" />
-  <link rel="icon" type="image/x-icon" href="https://mgzon-mgzon-app.hf.space/static/images/mg.svg">
-  <link rel="apple-touch-icon" href="https://mgzon-mgzon-app.hf.space/static/images/mg.svg">
+  <link rel="canonical" href="https://mgzonai.vercel.app/about" />
+  <link rel="icon" type="image/x-icon" href="/static/images/mg.svg">
+  <link rel="apple-touch-icon" href="/static/images/mg.svg">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="MGZon">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -21,14 +22,14 @@
   <!-- Open Graph -->
   <meta property="og:title" content="About MGZon AI – Adaptive Horizons">
   <meta property="og:description" content="Immerse in MGZon AI's adaptive story, powering 2026 AI frontiers for e-commerce and code generation.">
-  <meta property="og:image" content="https://mgzon-mgzon-app.hf.space/static/images/mg.svg">
-  <meta property="og:url" content="https://mgzon-mgzon-app.hf.space/about">
+  <meta property="og:image" content="/static/images/mg.svg">
+  <meta property="og:url" content="https://mgzonai.vercel.app/about">
   <meta property="og:type" content="website">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About MGZon AI – Adaptive Horizons">
   <meta name="twitter:description" content="Immerse in MGZon AI's adaptive story, powering 2026 AI frontiers for e-commerce and code generation.">
-  <meta name="twitter:image" content="https://mgzon-mgzon-app.hf.space/static/images/mg.svg">
+  <meta name="twitter:image" content="/static/images/mg.svg">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&family=Cairo:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <!-- Tailwind CSS -->
@@ -45,9 +46,11 @@
     if (window.innerWidth > 768) {
       const threeScript = document.createElement('script');
       threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+      threeScript.onload = () => console.log('Three.js loaded'); // Debug
       document.head.appendChild(threeScript);
       const particlesScript = document.createElement('script');
       particlesScript.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+      particlesScript.onload = () => console.log('Particles.js loaded'); // Debug
       document.head.appendChild(particlesScript);
     }
   </script>
@@ -89,10 +92,10 @@
       z-index: -1;
       opacity: 0.3;
       will-change: transform;
-      display: none;
+      display: none; /* Default hidden */
     }
     @media (min-width: 769px) {
-      #particles-js, #3d-canvas { display: block; }
+      #particles-js, #3d-canvas { display: block; } /* Show on desktop */
     }
     #hero-orb {
       position: fixed;
@@ -220,6 +223,23 @@
       color: #000;
       box-shadow: var(--glow-primary);
     }
+    .voice-btn.loading::after { /* Loading spinner for voice/search */
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid transparent;
+      border-top: 2px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     .contact-hub {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -292,6 +312,10 @@
       width: 100%;
       max-width: 200px;
     }
+    .search-bar:focus {
+      outline: none;
+      box-shadow: var(--glow-primary);
+    }
     .voice-status {
       position: fixed;
       top: 80px;
@@ -359,7 +383,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      space-x-4;
+      gap: 4px; /* إصلاح الخطأ السابق */
     }
     .hamburger {
       display: none;
@@ -470,7 +494,7 @@
     <div class="container mx-auto px-4 nav-container">
       <div class="flex items-center gap-4">
         <a href="/" class="text-xl font-bold font-orbitron neon-gradient" data-translate="navLogo">
-          <img src="https://mgzon-mgzon-app.hf.space/static/images/mg.svg" alt="MGZon Logo" class="inline w-6 h-6 logo-pulse mr-2" loading="lazy">
+          <img src="/static/images/mg.svg" alt="MGZon Logo" class="inline w-6 h-6 logo-pulse mr-2" loading="lazy">
           MGZon AI
         </a>
         <div class="hamburger">
@@ -505,7 +529,7 @@
   <!-- Hero Section -->
   <section class="hero-section relative min-h-screen flex items-center justify-center text-center pt-16">
     <div class="container mx-auto px-4">
-      <img src="https://mgzon-mgzon-app.hf.space/static/images/mg.svg" alt="MGZon Logo" class="w-48 h-48 mx-auto mb-6 logo-pulse" loading="lazy">
+      <img src="/static/images/mg.svg" alt="MGZon Logo" class="w-48 h-48 mx-auto mb-6 logo-pulse" loading="lazy">
       <h1 class="text-5xl md:text-7xl font-bold font-orbitron neon-gradient mb-6" data-translate="heroTitle">About MGZon AI</h1>
       <p class="text-lg md:text-2xl max-w-3xl mx-auto opacity-80" data-translate="heroDesc">An AI-powered platform revolutionizing e-commerce and code generation – Empowering creators and businesses with adaptive intelligence.</p>
       <div class="ar-hint mt-8" data-translate="arHint">
@@ -547,7 +571,7 @@
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-4xl md:text-6xl font-bold font-orbitron mb-12 neon-gradient" data-translate="visionTitle">Our Vision</h2>
       <div class="glass-morphism max-w-3xl mx-auto p-8">
-        <img src="https://mgzon-mgzon-app.hf.space/static/images/Mark_Al-Asfar.png" alt="MGZon Vision" class="w-32 h-32 mx-auto mb-6 rounded-full ring-4 ring-[var(--primary)]" loading="lazy">
+        <img src="/static/images/Mark_Al-Asfar.png" alt="MGZon Vision" class="w-32 h-32 mx-auto mb-6 rounded-full ring-4 ring-[var(--primary)]" loading="lazy">
         <h3 class="text-3xl font-bold mb-4" data-translate="visionDesc">Adaptive Intelligence for Tomorrow</h3>
         <p class="text-lg mb-8" data-translate="visionDetails">MGZon AI fuses cutting-edge tech with real-world utility, democratizing AI for seamless e-commerce and effortless code creation.</p>
         <a href="/profile" target="_blank" class="inline-flex items-center bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] text-black px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-[var(--glow-primary)] hover:scale-105" data-translate="visionBtn">Explore Features <i class='bx bx-rocket ml-2'></i></a>
@@ -582,12 +606,12 @@
       <h2 class="text-4xl md:text-6xl font-bold font-orbitron text-center mb-12 neon-gradient" data-translate="teamTitle">Core Constellation</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         <div class="glass-morphism p-6 text-center">
-          <img src="https://mgzon-mgzon-app.hf.space/static/images/Sarah_D.jpeg" alt="Sarah Dayan" class="w-32 h-32 mx-auto mb-4 rounded-full ring-4 ring-[var(--secondary)]" loading="lazy">
+          <img src="/static/images/Sarah_D.jpeg" alt="Sarah Dayan" class="w-32 h-32 mx-auto mb-4 rounded-full ring-4 ring-[var(--secondary)]" loading="lazy">
           <h3 class="text-2xl font-bold mb-3" data-translate="team1Name">Sarah Dayan</h3>
           <p class="text-base opacity-90" data-translate="team1Desc">Lead AI Architect – Sculpting ML & chatbot symphonies for MGZon.</p>
         </div>
         <div class="glass-morphism p-6 text-center">
-          <img src="https://mgzon-mgzon-app.hf.space/static/images/Leonardo.jpeg" alt="Leonardo Cuco" class="w-32 h-32 mx-auto mb-4 rounded-full ring-4 ring-[var(--accent)]" loading="lazy">
+          <img src="/static/images/Leonardo.jpeg" alt="Leonardo Cuco" class="w-32 h-32 mx-auto mb-4 rounded-full ring-4 ring-[var(--accent)]" loading="lazy">
           <h3 class="text-2xl font-bold mb-3" data-translate="team2Name">Leonardo Cuco</h3>
           <p class="text-base opacity-90" data-translate="team2Desc">E-Commerce Oracle – Orchestrating digital commerce evolutions for MGZon.</p>
         </div>
@@ -625,7 +649,7 @@
   <!-- Contact Nexus -->
   <footer class="py-16 relative overflow-hidden">
     <div class="container mx-auto px-4 text-center">
-      <img src="https://mgzon-mgzon-app.hf.space/static/images/mg.svg" alt="MGZon Core" class="w-24 h-24 mx-auto mb-8 logo-pulse" loading="lazy">
+      <img src="/static/images/mg.svg" alt="MGZon Core" class="w-24 h-24 mx-auto mb-8 logo-pulse" loading="lazy">
       <p class="mb-8 text-lg opacity-80" data-translate="footerCrafted">Powered by MGZon AI | Innovating in the MENA region</p>
       <div class="contact-hub mb-8">
         <div class="contact-pod" onclick="togglePanel('email')">
@@ -649,7 +673,7 @@
         <div class="contact-pod" onclick="togglePanel('community')">
           <i class="bx bx-group contact-icon"></i>
           <h4 class="font-bold mt-2" data-translate="contact3Title">Collective</h4>
-          <p><a href="https://mgzon-mgzon-app.hf.space/community" class="hover:underline" data-translate="contact3Btn">Assemble</a></p>
+          <p><a href="/community" class="hover:underline" data-translate="contact3Btn">Assemble</a></p>
           <div id="community-panel" class="details-panel">
             <p data-translate="contact3Details">Converge in the hive – Ideas ignite, collaborations supernova.</p>
             <button onclick="togglePanel('community')" class="text-[var(--primary)] mt-2 text-sm underline" data-translate="collapseBtn">Collapse</button>
@@ -695,12 +719,12 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "About MGZon AI",
-      "url": "https://mgzon-mgzon-app.hf.space/about",
+      "url": "https://mgzonai.vercel.app/about",
       "description": "Learn about MGZon AI's mission, technologies, and achievements in AI-powered e-commerce and code generation.",
       "publisher": {
         "@type": "Organization",
         "name": "MGZon AI",
-        "logo": "https://mgzon-mgzon-app.hf.space/static/images/mg.svg"
+        "logo": "/static/images/mg.svg"
       },
       "inLanguage": "en"
     }

@@ -13,7 +13,7 @@
   <meta name="author" content="Mark Al-Asfar" />
   <meta name="robots" content="index, follow" />
   <title>MGZon Chatbot – AI Assistant</title>
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="/static/sitemap.xml" />
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
   <link rel="apple-touch-icon" href="/static/images/mg.svg" />
   <!-- Open Graph -->
@@ -33,7 +33,7 @@
   <meta property="og:description"
     content="Chat with MGZon Chatbot for coding, analysis, and e-commerce queries with text, image, and audio support." />
   <meta property="og:image" content="/static/images/mg.svg" />
-  <meta property="og:url" content="https://mgzon-mgzon-app.hf.space/chat" />
+  <meta property="og:url" content="https://mgzonai.vercel.app/chat" />
   <meta property="og:type" content="website" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -47,7 +47,7 @@
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "MGZon Chatbot",
-    "url": "https://mgzon-mgzon-app.hf.space/chat",
+    "url": "https://mgzonai.vercel.app/chat",
     "description": "An AI-powered chatbot for coding, analysis, and e-commerce queries."
   }
   </script>
@@ -412,17 +412,7 @@
     © 2025 Mark Al-Asfar & MGZon AI. All rights reserved.
   </div>
   <!-- Install Button -->
-  <button id="installAppBtn" style="display: none;"
-    class="fixed bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded shadow-lg z-50">
-    📲 Install MG Chat
-  </button>
   <!-- PWA Install Instructions -->
-  <div id="pwa-instructions" class="fixed bottom-4 left-4 right-4 bg-blue-600 text-white p-4 rounded-lg z-50 hidden">
-    <p><strong>Add to Home Screen:</strong> Tap the share button in your browser, then "Add to Home Screen" for a
-      native-like experience!</p>
-    <button onclick="document.getElementById('pwa-instructions').classList.add('hidden')"
-      class="ml-2 text-sm">Close</button>
-  </div>
 
   <!-- Scripts -->
   <script src="/static/js/chat.js?v=1.2"></script>
@@ -434,51 +424,7 @@
     AOS.init();
 
     // تمرير conversation_id و conversation_title إذا كانا موجودين
-    {% if conversation_id %}
-    window.conversationId = "{{ conversation_id }}";
-    window.conversationTitle = "{{ conversation_title }}";
-    if (window.loadConversation) {
-      window.loadConversation("{{ conversation_id }}");
-    }
-    {% endif %}
 
-    // تسجيل Service Worker لتفعيل الـ PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/static/js/sw.js')
-        .then(function (reg) {
-          console.log('✅ Service Worker Registered', reg);
-        }).catch(function (err) {
-          console.error('❌ Service Worker registration failed', err);
-        });
-    }
-
-    // التعامل مع حدث beforeinstallprompt لتثبيت التطبيق
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const installBtn = document.getElementById('installAppBtn');
-      if (installBtn) {
-        installBtn.style.display = 'block';
-        installBtn.addEventListener('click', () => {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then(choice => {
-            if (choice.outcome === 'accepted') {
-              console.log('✅ User accepted the install prompt');
-            } else {
-              console.log('❌ User dismissed the install prompt');
-            }
-            deferredPrompt = null;
-          });
-        });
-      }
-    });
-
-    // Show PWA instructions on first visit
-    if (localStorage.getItem('pwa-instructions-shown') !== 'true') {
-      document.getElementById('pwa-instructions').classList.remove('hidden');
-      localStorage.setItem('pwa-instructions-shown', 'true');
-    }
   </script>
 
 </body>

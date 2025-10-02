@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,258 +8,500 @@
   <meta name="keywords" content="MGZon Chatbot, MGZon AI, blog, AI trends, code generation, e-commerce, Mark Al-Asfar, AI chatbot, code generation bot, e-commerce chatbot, Python AI chatbot, AI for coding, e-commerce automation, 2025 AI trends, chatgpt, grok, deepseek, text generation">
   <meta name="author" content="Mark Al-Asfar">
   <link rel="manifest" href="/static/manifest.json">
-
   <meta name="robots" content="index, follow">
-  <title>{{ post.title }} - MGZon AI</title>
+  <title data-translate="title">{{ post.title }} - MGZon AI</title>
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-<link rel="apple-touch-icon" href="/static/images/mg.svg">
+  <link rel="apple-touch-icon" href="/static/images/mg.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="MGZon">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#00f0ff">
   <!-- Open Graph -->
   <meta property="og:title" content="{{ post.title }} - MGZon AI">
   <meta property="og:description" content="{{ post.content | truncate(150) }}">
-<meta property="og:image" content="/static/images/mg.svg">
-  <meta property="og:url" content="https://mgzon-mgzon-app.hf.space/blog/{{ post.id }}">
+  <meta property="og:image" content="/static/images/mg.svg">
+  <meta property="og:url" content="https://mgzonai.vercel.app/blog/{{ post.id }}">
   <meta property="og:type" content="article">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ post.title }} - MGZon AI">
   <meta name="twitter:description" content="{{ post.content | truncate(150) }}">
-<meta name="twitter:image" content="/static/images/mg.svg">
-  <!-- JSON-LD -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "{{ post.title }}",
-  "url": "https://mgzon-mgzon-app.hf.space/blog/{{ post.id }}",
-  "description": "{{ post.content | truncate(150) }}",
-  "keywords": ["MGZon Chatbot", "MGZon AI", "blog", "AI trends", "code generation", "e-commerce", "Mark Al-Asfar", "AI chatbot", "code generation bot", "e-commerce chatbot", "Python AI chatbot", "AI for coding", "e-commerce automation", "2025 AI trends", "chatgpt", "grok", "deepseek", "text generation"],
-  "author": {
-    "@type": "Person",
-    "name": "Mark Al-Asfar",
-    "url": "https://mark-elasfar.web.app/"
-  },
-  "datePublished": "{{ post.date }}",
-  "publisher": {
-    "@type": "Organization",
-    "name": "MGZon AI",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "/static/images/mg.svg"
-    }
-  },
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "MGZon Chatbot",
-    "url": "https://mgzon-mgzon-app.hf.space/"
-  }
-}
-</script>
-  <!-- Tailwind (v3) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="twitter:image" content="/static/images/mg.svg">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&family=Cairo:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <!-- Boxicons -->
   <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <!-- External JavaScript -->
+  <script src="/static/js/blog.js" defer></script>
+  <!-- تحميل مشروط لـ Three.js و Particles.js -->
+  <script>
+    if (window.innerWidth > 768) {
+      const threeScript = document.createElement('script');
+      threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+      document.head.appendChild(threeScript);
+      const particlesScript = document.createElement('script');
+      particlesScript.src = 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js';
+      document.head.appendChild(particlesScript);
+    }
+  </script>
   <style>
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    :root {
+      --primary: #00f0ff;
+      --secondary: #ff007a;
+      --accent: #6b21a8;
+      --background: #000;
+      --foreground: #f8f9fa;
+      --card-bg: rgba(10, 10, 10, 0.9);
+      --glow-primary: 0 0 25px #00f0ff;
+      --glow-secondary: 0 0 25px #ff007a;
+    }
+    [data-theme="light"] {
+      --background: #f8f9fa;
+      --foreground: #000;
+      --card-bg: rgba(248, 249, 250, 0.9);
     }
     body {
-      background: linear-gradient(135deg, #0f172a, #0e7490, #065f46, #064e3b);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      font-family: system-ui, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      transition: background 0.3s, color 0.3s;
     }
-    .glass {
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+    .rtl {
+      direction: rtl;
+      font-family: 'Cairo', sans-serif;
+    }
+    #particles-js, #3d-canvas {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
+      will-change: transform;
+      display: none;
+    }
+    @media (min-width: 769px) {
+      #particles-js, #3d-canvas { display: block; }
+    }
+    .neon-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      background-size: 300% 300%;
+      animation: gradientShift 5s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .glass-morphism {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .glass-morphism:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 120, 255, 0.3);
+      border-color: var(--primary);
     }
     .sidebar {
-      transition: transform 0.3s ease-in-out;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease;
     }
-    .sidebar.collapsed .logo {
+    .sidebar.active {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .sidebar.collapsed {
+      transform: translateX(-100%);
       opacity: 0;
-      transition: opacity 0.2s ease;
     }
     .main-content {
       min-height: calc(100vh - 4rem);
     }
-    .glass:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-      background: rgba(255, 255, 255, 0.15);
+    .search-bar {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--primary);
+      color: var(--foreground);
+      padding: 6px 12px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 200px;
     }
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-      .sidebar.active {
-        transform: translateX(0);
-      }
+    .voice-btn {
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      transition: all 0.3s ease;
+    }
+    .voice-btn:hover {
+      background: var(--primary);
+      color: #000;
+      box-shadow: var(--glow-primary);
+    }
+    .theme-btn {
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      transition: all 0.3s ease;
+    }
+    .theme-btn:hover {
+      background: var(--primary);
+      color: #000;
+      box-shadow: var(--glow-primary);
+      transform: rotate(180deg);
+    }
+    .logo-pulse {
+      animation: pulseLogo 2s infinite;
+    }
+    @keyframes pulseLogo {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
     .markdown-content img {
       max-width: 100%;
       height: auto;
       margin: 1rem 0;
+      border-radius: 8px;
     }
     .markdown-content h2 {
       font-size: 1.875rem;
       font-weight: bold;
       margin-top: 2rem;
       margin-bottom: 1rem;
+      color: var(--primary);
     }
     .markdown-content p {
       margin-bottom: 1rem;
+      line-height: 1.6;
     }
     .markdown-content a {
-      color: #34d399;
+      color: var(--primary);
       text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    .markdown-content a:hover {
+      color: var(--secondary);
     }
     .markdown-content blockquote {
-      border-left: 4px solid #34d399;
+      border-left: 4px solid var(--primary);
       padding-left: 1rem;
       margin: 1rem 0;
-      color: #d1d5db;
+      color: var(--foreground);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .voice-status {
+      position: fixed;
+      top: 80px;
+      right: 10px;
+      background: rgba(0,0,0,0.8);
+      color: var(--primary);
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: none;
+      z-index: 1000;
+    }
+    .gemini-popup {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card-bg);
+      color: var(--foreground);
+      padding: 15px;
+      border-radius: 16px;
+      width: 90vw;
+      max-width: 400px;
+      max-height: 60vh;
+      overflow-y: auto;
+      display: none;
+      z-index: 1000;
+      border: 1px solid var(--primary);
+      box-shadow: var(--glow-primary);
+    }
+    .close-popup {
+      cursor: pointer;
+      float: right;
+      font-size: 20px;
+      color: var(--primary);
+    }
+    .chat-message {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 12px;
+      background: rgba(0, 240, 255, 0.1);
+      word-wrap: break-word;
+      line-height: 1.5;
+    }
+    .chat-message.user {
+      background: rgba(255, 0, 122, 0.1);
+      text-align: right;
+    }
+    #voice-toggle.listening {
+      background: rgba(255, 0, 0, 0.5);
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        display: flex;
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .sidebar.collapsed {
+        display: none;
+      }
+      .hamburger {
+        display: block;
+      }
+      .nav-container {
+        flex-wrap: wrap;
+        padding: 0.5rem 1rem;
+      }
+      .search-bar {
+        max-width: 150px;
+      }
+      .theme-btn, .voice-btn {
+        width: 32px;
+        height: 32px;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+      .glass-morphism {
+        padding: 1rem;
+        border-radius: 12px;
+      }
+      .container {
+        padding: 0 0.5rem;
+      }
+      .markdown-content h1 {
+        font-size: 2rem;
+      }
+      .markdown-content h2 {
+        font-size: 1.5rem;
+      }
+      .markdown-content p {
+        font-size: 0.9rem;
+      }
+      footer .grid {
+        grid-template-columns: 1fr;
+      }
+      .logo-pulse {
+        width: 24px;
+        height: 24px;
+      }
+      .gemini-popup {
+        width: 95vw;
+      }
     }
   </style>
 </head>
 <body class="text-white flex flex-col min-h-screen">
-  <!-- Mobile toggle button -->
-  <button id="sidebarToggle" class="md:hidden fixed top-4 left-4 z-50 p-2 text-2xl text-white rounded bg-gray-800/60 hover:bg-gray-700/80 transition" aria-label="Toggle navigation">
-    <i class="bx bx-menu"></i>
-  </button>
-  <!-- Sidebar -->
-  <aside id="sidebar" class="sidebar fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-teal-800 to-emerald-900 p-6 flex flex-col overflow-y-auto z-40">
-    <button id="closeSidebar" class="md:hidden text-white text-2xl absolute top-4 right-4" aria-label="Close sidebar">✕</button>
-<img src="/static/images/mg.svg" alt="MGZon Logo" class="w-32 h-32 mx-auto mb-6 animate-bounce">
-    <nav class="flex flex-col gap-3">
-      <a href="/" class="px-4 py-2 rounded-lg hover:bg-emerald-600 transition">Home</a>
-      <a href="/docs" class="px-4 py-2 rounded-lg hover:bg-emerald-600 transition">API Documentation</a>
-      <a href="/about" class="px-4 py-2 rounded-lg hover:bg-emerald-600 transition">About MGZon</a>
-      <a href="/login" class="px-4 py-2 rounded-lg hover:bg-emerald-600 transition">Login</a>
-      <a href="/register" class="px-4 py-2 rounded-lg hover:bg-emerald-600 transition">Register</a>
-      <a href="/blog" class="px-4 py-2 rounded-lg bg-emerald-600">Blog</a>
-      <a href="https://hager-zon.vercel.app/community" class="px-4 py-2 rounded-lg hover:bg-emerald-600 transition">Community</a>
-      <a href="https://mark-elasfar.web.app/" target="_blank" class="px-4 py-2 rounded-lg hover:bg-emerald-600 transition">Mark Al-Asfar</a>
-    </nav>
-  </aside>
+  <!-- Particles -->
+  <div id="particles-js"></div>
+  <!-- 3D Ambient -->
+  <canvas id="3d-canvas"></canvas>
+  <!-- Voice Status -->
+  <div id="voice-status" class="voice-status" data-translate="voiceStatus">Listening...</div>
+  <!-- Gemini Chat Popup -->
+  <div id="gemini-popup" class="gemini-popup">
+    <span class="close-popup" onclick="closePopup()">&times;</span>
+    <div id="popup-content"></div>
+    <div class="mt-4">
+      <input type="text" id="chat-input" class="search-bar w-full" data-translate-placeholder="chatPlaceholder" placeholder="Type your message...">
+      <button id="send-chat" class="mt-2 bg-[var(--primary)] text-black px-4 py-2 rounded-full w-full" data-translate="sendBtn">Send</button>
+    </div>
+  </div>
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-[var(--card-bg)] backdrop-filter backdrop-blur-lg z-50 py-3">
+    <div class="container mx-auto px-4 nav-container">
+      <div class="flex items-center gap-4">
+        <a href="/" class="text-xl font-bold font-orbitron neon-gradient" data-translate="navLogo">
+          <img src="/static/images/mg.svg" alt="MGZon Logo" class="inline w-6 h-6 logo-pulse mr-2" loading="lazy">
+          MGZon AI
+        </a>
+        <div class="hamburger">
+          <i class='bx bx-menu'></i>
+        </div>
+      </div>
+      <aside id="sidebar" class="sidebar flex flex-col gap-3">
+        <a href="/" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navHome">Home</a>
+        <a href="/docs" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navDocs">API Documentation</a>
+        <a href="/about" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navAbout">About</a>
+        <a href="/download" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navDownload">Download</a>
+        <a href="/login" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navLogin">Login</a>
+        <a href="/register" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navRegister">Register</a>
+        <a href="/blog" class="px-4 py-2 rounded-lg bg-[var(--primary)] text-black" data-translate="navBlog">Blog</a>
+        <a href="https://hager-zon.vercel.app/community" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navCommunity">Community</a>
+        <a href="https://mark-elasfar.web.app/" target="_blank" class="px-4 py-2 rounded-lg hover:bg-[var(--primary)] hover:text-black transition" data-translate="navMark">Mark Al-Asfar</a>
+      </aside>
+      <div class="search-container">
+        <input type="text" id="search-input" class="search-bar" data-translate-placeholder="searchPlaceholder" placeholder="Search...">
+        <button id="voice-toggle" class="voice-btn" data-title-translate="voiceTitle">
+          <i class='bx bx-microphone'></i>
+        </button>
+        <button id="theme-toggle" class="theme-btn" data-title-translate="themeTitle">
+          <i class='bx bx-sun'></i>
+        </button>
+      </div>
+    </div>
+  </nav>
   <!-- Main content -->
   <main class="flex-1 md:ml-64 p-6 main-content">
     <section class="container max-w-6xl mx-auto">
       <div class="text-center py-12">
-<img src="/static/images/mg.svg" alt="MGZon Logo" class="w-32 h-32 mx-auto mb-6 animate-bounce">
-        <h1 class="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-emerald-400">
-          {{ post.title }}
-        </h1>
+        <img src="/static/images/mg.svg" alt="MGZon Logo" class="w-24 h-24 mx-auto mb-6 logo-pulse" loading="lazy">
+        <h1 class="text-5xl md:text-7xl font-bold font-orbitron mb-4 neon-gradient" data-translate="postTitle">{{ post.title }}</h1>
         <p class="text-sm text-gray-300">By {{ post.author }} | {{ post.date }}</p>
       </div>
       <!-- Blog Post Content -->
-      <section class="my-12 glass p-8 markdown-content">
-{{ post.content | markdown | safe }}
+      <section class="my-12 glass-morphism p-8 markdown-content">
+        {{ post.content | markdown | safe }}
       </section>
     </section>
   </main>
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-teal-900 to-emerald-900 py-12 mt-8">
+  <footer class="bg-[var(--card-bg)] py-12 mt-8">
     <div class="container max-w-6xl mx-auto text-center">
-<img src="/static/images/mg.svg" alt="MGZon Chatbot Logo by Mark Al-Asfar" class="w-32 h-32 mx-auto mb-6 animate-bounce">
-      <p class="mb-4">
-        Developed by <a href="https://mark-elasfar.web.app/" target="_blank" class="text-emerald-300 hover:underline">Mark Al-Asfar</a>
-        | Powered by <a href="https://hager-zon.vercel.app/" target="_blank" class="text-emerald-300 hover:underline">MGZon AI</a>
+      <img src="/static/images/mg.svg" alt="MGZon Chatbot Logo" class="w-24 h-24 mx-auto mb-6 logo-pulse" loading="lazy">
+      <p class="mb-4" data-translate="footerCrafted">
+        Developed by <a href="https://mark-elasfar.web.app/" target="_blank" class="text-[var(--primary)] hover:underline">Mark Al-Asfar</a>
+        | Powered by <a href="https://hager-zon.vercel.app/" target="_blank" class="text-[var(--primary)] hover:underline">MGZon AI</a>
       </p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <div class="glass p-4 cursor-pointer" onclick="showCardDetails('email')">
-          <i class="bx bx-mail-send text-3xl text-emerald-300 mb-2"></i>
-          <h4 class="font-semibold mb-1">Email Us</h4>
-          <p><a href="mailto:support@mgzon.com" class="text-emerald-300 hover:underline">support@mgzon.com</a></p>
-          <div id="email-details" class="hidden mt-4 p-4 bg-gray-700/80 rounded-lg">
-            <p>Reach out to our support team for any inquiries or assistance.</p>
-            <button onclick="closeCardDetails('email')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg mt-2">Close</button>
+      <div class="contact-hub mb-8">
+        <div class="contact-pod" onclick="togglePanel('email')">
+          <i class="bx bx-mail-send contact-icon"></i>
+          <h4 class="font-bold mt-2" data-translate="contact1Title">Email Us</h4>
+          <p><a href="mailto:support@mgzon.com" class="text-[var(--primary)] hover:underline">support@mgzon.com</a></p>
+          <div id="email-panel" class="details-panel">
+            <p data-translate="contact1Details">Reach out to our support team for any inquiries or assistance.</p>
+            <button onclick="togglePanel('email')" class="text-[var(--primary)] mt-2 text-sm underline" data-translate="collapseBtn">Collapse</button>
           </div>
         </div>
-        <div class="glass p-4 cursor-pointer" onclick="showCardDetails('phone')">
-          <i class="bx bx-phone text-3xl text-emerald-300 mb-2"></i>
-          <h4 class="font-semibold mb-1">Phone Support</h4>
-          <p>+1-800-123-4567</p>
-          <div id="phone-details" class="hidden mt-4 p-4 bg-gray-700/80 rounded-lg">
-            <p>Contact our support team via phone for immediate assistance.</p>
-            <button onclick="closeCardDetails('phone')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg mt-2">Close</button>
+        <div class="contact-pod" onclick="togglePanel('phone')">
+          <i class="bx bx-phone contact-icon"></i>
+          <h4 class="font-bold mt-2" data-translate="contact2Title">Phone Support</h4>
+          <p>+20 1212444617</p>
+          <div id="phone-panel" class="details-panel">
+            <p data-translate="contact2Details">Contact our support team via phone for immediate assistance.</p>
+            <button onclick="togglePanel('phone')" class="text-[var(--primary)] mt-2 text-sm underline" data-translate="collapseBtn">Collapse</button>
           </div>
         </div>
-        <div class="glass p-4 cursor-pointer" onclick="showCardDetails('community')">
-          <i class="bx bx-group text-3xl text-emerald-300 mb-2"></i>
-          <h4 class="font-semibold mb-1">Community</h4>
-          <p><a href="https://hager-zon.vercel.app/community" class="text-emerald-300 hover:underline">Join us</a></p>
-          <div id="community-details" class="hidden mt-4 p-4 bg-gray-700/80 rounded-lg">
-            <p>Join our vibrant community to share ideas and collaborate.</p>
-            <button onclick="closeCardDetails('community')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg mt-2">Close</button>
+        <div class="contact-pod" onclick="togglePanel('community')">
+          <i class="bx bx-group contact-icon"></i>
+          <h4 class="font-bold mt-2" data-translate="contact3Title">Community</h4>
+          <p><a href="https://hager-zon.vercel.app/community" class="text-[var(--primary)] hover:underline" data-translate="contact3Btn">Join us</a></p>
+          <div id="community-panel" class="details-panel">
+            <p data-translate="contact3Details">Join our vibrant community to share ideas and collaborate.</p>
+            <button onclick="togglePanel('community')" class="text-[var(--primary)] mt-2 text-sm underline" data-translate="collapseBtn">Collapse</button>
           </div>
         </div>
-        <div class="glass p-4 cursor-pointer" onclick="showCardDetails('api-docs')">
-          <i class="bx bx-code-alt text-3xl text-emerald-300 mb-2"></i>
-          <h4 class="font-semibold mb-1">API Docs</h4>
-          <p><a href="/docs" class="text-emerald-300 hover:underline">Explore Docs</a></p>
-          <div id="api-docs-details" class="hidden mt-4 p-4 bg-gray-700/80 rounded-lg">
-            <p>Explore our API documentation for seamless integration.</p>
-            <button onclick="closeCardDetails('api-docs')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg mt-2">Close</button>
+        <div class="contact-pod" onclick="togglePanel('api-docs')">
+          <i class="bx bx-code-alt contact-icon"></i>
+          <h4 class="font-bold mt-2" data-translate="contact4Title">API Docs</h4>
+          <p><a href="/docs" class="text-[var(--primary)] hover:underline" data-translate="contact4Btn">Explore Docs</a></p>
+          <div id="api-docs-panel" class="details-panel">
+            <p data-translate="contact4Details">Explore our API documentation for seamless integration.</p>
+            <button onclick="togglePanel('api-docs')" class="text-[var(--primary)] mt-2 text-sm underline" data-translate="collapseBtn">Collapse</button>
           </div>
         </div>
-        <div class="glass p-4 cursor-pointer" onclick="showCardDetails('faq')">
-          <i class="bx bx-help-circle text-3xl text-emerald-300 mb-2"></i>
-          <h4 class="font-semibold mb-1">FAQ</h4>
-          <p><a href="https://hager-zon.vercel.app/faq" target="_blank" class="text-emerald-300 hover:underline">Read FAQ</a></p>
-          <div id="faq-details" class="hidden mt-4 p-4 bg-gray-700/80 rounded-lg">
-            <p>Find answers to common questions in our FAQ section.</p>
-            <button onclick="closeCardDetails('faq')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg mt-2">Close</button>
+        <div class="contact-pod" onclick="togglePanel('faq')">
+          <i class="bx bx-help-circle contact-icon"></i>
+          <h4 class="font-bold mt-2" data-translate="contact5Title">FAQ</h4>
+          <p><a href="https://hager-zon.vercel.app/faq" target="_blank" class="text-[var(--primary)] hover:underline" data-translate="contact5Btn">Read FAQ</a></p>
+          <div id="faq-panel" class="details-panel">
+            <p data-translate="contact5Details">Find answers to common questions in our FAQ section.</p>
+            <button onclick="togglePanel('faq')" class="text-[var(--primary)] mt-2 text-sm underline" data-translate="collapseBtn">Collapse</button>
           </div>
         </div>
-        <div class="glass p-4 cursor-pointer" onclick="showCardDetails('docs')">
-          <i class="bx bx-book text-3xl text-emerald-300 mb-2"></i>
-          <h4 class="font-semibold mb-1">Documentation</h4>
-          <p><a href="/docs" class="text-emerald-300 hover:underline">Full Docs</a></p>
-          <div id="docs-details" class="hidden mt-4 p-4 bg-gray-700/80 rounded-lg">
-            <p>Access comprehensive documentation for MGZon Chatbot.</p>
-            <button onclick="closeCardDetails('docs')" class="bg-emerald-500 text-white px-4 py-2 rounded-lg mt-2">Close</button>
+        <div class="contact-pod" onclick="togglePanel('docs')">
+          <i class="bx bx-book contact-icon"></i>
+          <h4 class="font-bold mt-2" data-translate="contact6Title">Documentation</h4>
+          <p><a href="/docs" class="text-[var(--primary)] hover:underline" data-translate="contact6Btn">Full Docs</a></p>
+          <div id="docs-panel" class="details-panel">
+            <p data-translate="contact6Details">Access comprehensive documentation for MGZon Chatbot.</p>
+            <button onclick="togglePanel('docs')" class="text-[var(--primary)] mt-2 text-sm underline" data-translate="collapseBtn">Collapse</button>
           </div>
         </div>
       </div>
       <div class="flex justify-center gap-6 mt-6">
-        <a href="https://github.com/Mark-Lasfar/MGZon" class="text-2xl text-white hover:text-emerald-300 transition"><i class="bx bxl-github"></i></a>
-        <a href="https://x.com/MGZon" class="text-2xl text-white hover:text-emerald-300 transition"><i class="bx bxl-twitter"></i></a>
-        <a href="https://www.facebook.com/people/Mark-Al-Asfar/pfbid02GMisUQ8AqWkNZjoKtWFHH1tbdHuVscN1cjcFnZWy9HkRaAsmanBfT6mhySAyqpg4l/" class="text-2xl text-white hover:text-emerald-300 transition"><i class="bx bxl-facebook"></i></a>
+        <a href="https://github.com/Mark-Lasfar/MGZon" class="text-2xl text-white hover:text-[var(--primary)] transition"><i class="bx bxl-github"></i></a>
+        <a href="https://x.com/mgz0n" class="text-2xl text-white hover:text-[var(--primary)] transition"><i class="bx bxl-twitter"></i></a>
+        <a href="https://www.facebook.com/people/Mark-Al-Asfar/pfbid02GMisUQ8AqWkNZjoKtWFHH1tbdHuVscN1cjcFnZWy9HkRaAsmanBfT6mhySAyqpg4l/" class="text-2xl text-white hover:text-[var(--primary)] transition"><i class="bx bxl-facebook"></i></a>
       </div>
-      <p class="mt-6">© 2025 Mark Al-Asfar & MGZon AI. All rights reserved.</p>
+      <p class="mt-6 opacity-70 text-sm" data-translate="copyright">© 2026 MGZon AI. Eternal in the codeverse.</p>
     </div>
   </footer>
-  <script>
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('sidebarToggle');
-    const closeSidebarBtn = document.getElementById('closeSidebar');
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-      sidebar.classList.toggle('-translate-x-full');
-      sidebar.classList.toggle('translate-x-0');
-    });
-    closeSidebarBtn.addEventListener('click', () => {
-      sidebar.classList.remove('active');
-      sidebar.classList.add('-translate-x-full');
-      sidebar.classList.remove('translate-x-0');
-    });
-    document.addEventListener('click', (e) => {
-      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target) && window.innerWidth < 768) {
-        sidebar.classList.remove('active');
-        sidebar.classList.add('-translate-x-full');
-        sidebar.classList.remove('translate-x-0');
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "{{ post.title }}",
+      "url": "https://mgzonai.vercel.app/blog/{{ post.id }}",
+      "description": "{{ post.content | truncate(150) }}",
+      "keywords": ["MGZon Chatbot", "MGZon AI", "blog", "AI trends", "code generation", "e-commerce", "Mark Al-Asfar", "AI chatbot", "code generation bot", "e-commerce chatbot", "Python AI chatbot", "AI for coding", "e-commerce automation", "2025 AI trends", "chatgpt", "grok", "deepseek", "text generation"],
+      "author": {
+        "@type": "Person",
+        "name": "Mark Al-Asfar",
+        "url": "https://mark-elasfar.web.app/"
+      },
+      "datePublished": "{{ post.date }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "MGZon AI",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "/static/images/mg.svg"
+        }
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MGZon Chatbot",
+        "url": "https://mgzonai.vercel.app/"
       }
-    });
-    function showCardDetails(cardId) {
-      document.getElementById(`${cardId}-details`).classList.remove('hidden');
-    }
-    function closeCardDetails(cardId) {
-      document.getElementById(`${cardId}-details`).classList.add('hidden');
     }
   </script>
 </body>

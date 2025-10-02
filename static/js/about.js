@@ -1,6 +1,6 @@
-// about.js
+// about.js - Updated completely with full translations, deeper search, fixed backgrounds/voice/search
 
-// Translations - Updated with project & AI details
+// Translations - Full and complete
 const translations = {
   en: {
     title: "About MGZon AI – Adaptive Horizons",
@@ -90,7 +90,7 @@ const translations = {
     team2Desc: "خبير التجارة الإلكترونية – تنسيق تطورات التجارة الرقمية لـ MGZon.",
     achievementsTitle: "المعالم",
     ach1Title: "الوصول العالمي",
-    ach1Desc: "خدمة 10K+ مستخدمين عبر 50 دولة، مدعومة بكوكبات مدفوعة بالذكاء الاصطناعي.",
+    ach1Desc: "خدمة 10K+ مستخدمين عبر 50 دولة، مدعومة بكوكبات مدعومة بالذكاء الاصطناعي.",
     ach2Title: "الإعجاب الصناعي",
     ach2Desc: "مميزة كأفضل مبتكر AI في الشرق الأوسط من TechCrunch – قائدة اختراقات 2024.",
     missionTitle: "نجمنا الشمالي",
@@ -283,84 +283,137 @@ function switchLanguage(lang) {
   if (recognition) recognition.lang = lang === 'ar' ? 'ar-SA' : lang === 'fr' ? 'fr-FR' : lang === 'de' ? 'de-DE' : 'en-US';
 }
 
-// Theme Toggle
-document.getElementById('theme-toggle').addEventListener('click', () => {
-  document.body.dataset.theme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
-  const icon = document.querySelector('#theme-toggle i');
-  icon.classList.toggle('bx-sun');
-  icon.classList.toggle('bx-moon');
+// GSAP Animations (wrapped in DOMContentLoaded for safety)
+document.addEventListener('DOMContentLoaded', () => {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from(".timeline-node", {
+    scrollTrigger: { trigger: ".timeline-container", start: "top 80%" },
+    y: 60,
+    opacity: 0,
+    duration: 1.2,
+    stagger: 0.3,
+    ease: "power3.out"
+  });
+  gsap.from(".neon-gradient", {
+    scrollTrigger: { trigger: "section" },
+    scale: 0.8,
+    opacity: 0,
+    duration: 1,
+    ease: "back.out(1.7)"
+  });
+
+  // Theme Toggle
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    document.body.dataset.theme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+    const icon = document.querySelector('#theme-toggle i');
+    icon.classList.toggle('bx-sun');
+    icon.classList.toggle('bx-moon');
+  });
+
+  // Language Toggle
+  document.getElementById('lang-toggle').addEventListener('change', (e) => {
+    switchLanguage(e.target.value);
+  });
+
+  // AR Toggle
+  document.querySelector('.ar-hint').addEventListener('click', () => {
+    const arScene = document.getElementById('ar-scene');
+    arScene.style.display = arScene.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Initialize language
+  switchLanguage(currentLang);
+
+  // Initialize visuals after delay for script loading
+  setTimeout(() => {
+    init3D();
+    initParticles();
+    initOrb();
+  }, 1000);
 });
 
-// Language Toggle
-document.getElementById('lang-toggle').addEventListener('change', (e) => {
-  switchLanguage(e.target.value);
-});
-
-// GSAP Animations
-gsap.registerPlugin(ScrollTrigger);
-gsap.from(".timeline-node", {
-  scrollTrigger: { trigger: ".timeline-container", start: "top 80%" },
-  y: 60,
-  opacity: 0,
-  duration: 1.2,
-  stagger: 0.3,
-  ease: "power3.out"
-});
-gsap.from(".neon-gradient", {
-  scrollTrigger: { trigger: "section" },
-  scale: 0.8,
-  opacity: 0,
-  duration: 1,
-  ease: "back.out(1.7)"
-});
-
-// Three.js Orb
-const orbScene = new THREE.Scene();
-const orbCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-const orbRenderer = new THREE.WebGLRenderer({ canvas: document.getElementById('hero-orb') || document.createElement('canvas'), alpha: true });
-orbRenderer.setSize(300, 300);
-const orbGeometry = new THREE.SphereGeometry(1, 32, 32);
-const orbMaterial = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
-const orb = new THREE.Mesh(orbGeometry, orbMaterial);
-orbScene.add(orb);
-orbCamera.position.z = 5;
+// Three.js Orb (with error handling)
+let orbScene, orbCamera, orbRenderer, orb;
+function initOrb() {
+  if (window.innerWidth <= 768) return; // Skip on mobile
+  try {
+    if (typeof THREE === 'undefined') throw new Error('Three.js not loaded');
+    orbScene = new THREE.Scene();
+    orbCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    const canvas = document.getElementById('hero-orb');
+    if (!canvas) throw new Error('Orb canvas not found');
+    orbRenderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    orbRenderer.setSize(300, 300);
+    const orbGeometry = new THREE.SphereGeometry(1, 32, 32);
+    const orbMaterial = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+    orb = new THREE.Mesh(orbGeometry, orbMaterial);
+    orbScene.add(orb);
+    orbCamera.position.z = 5;
+    console.log('Orb initialized'); // Debug
+    rotateOrb();
+  } catch (e) {
+    console.error('Orb init error:', e); // Error handling
+  }
+}
 function rotateOrb() {
+  if (!orb || !orbRenderer) return;
   requestAnimationFrame(rotateOrb);
   orb.rotation.x += 0.005;
   orb.rotation.y += 0.01;
   orbRenderer.render(orbScene, orbCamera);
 }
-rotateOrb();
 
-// Particles.js (Optimized for performance)
-particlesJS('particles-js', {
-  particles: {
-    number: { value: 20, density: { enable: true, value_area: 800 } },
-    color: { value: ['#00f0ff', '#ff007a', '#6b21a8'] },
-    shape: { type: 'star' },
-    opacity: { value: 0.3, random: true },
-    size: { value: 2, random: true },
-    line_linked: { enable: false },
-    move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
-  },
-  interactivity: { events: { onhover: { enable: true, mode: 'bubble' } } }
-});
-
-// 3D Ambient (Optimized)
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('3d-canvas'), alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
-for (let i = 0; i < 15; i++) {
-  const cube = new THREE.Mesh(geometry, material);
-  cube.position.set((Math.random() - 0.6) * 100, (Math.random() - 0.6) * 100, (Math.random() - 0.6) * 100);
-  scene.add(cube);
+// Particles.js (with error handling)
+function initParticles() {
+  if (window.innerWidth <= 768 || typeof particlesJS === 'undefined') return; // Skip if not loaded
+  try {
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 15, density: { enable: true, value_area: 800 } }, // Reduced for perf
+        color: { value: ['#00f0ff', '#ff007a', '#6b21a8'] },
+        shape: { type: 'star' },
+        opacity: { value: 0.3, random: true },
+        size: { value: 2, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 2, direction: 'none', random: true, out_mode: 'out' }
+      },
+      interactivity: { events: { onhover: { enable: true, mode: 'bubble' } } }
+    });
+    console.log('Particles initialized'); // Debug
+  } catch (e) {
+    console.error('Particles init error:', e);
+  }
 }
-camera.position.z = 50;
+
+// 3D Ambient Cubes (with error handling)
+let scene, camera, renderer;
+function init3D() {
+  if (window.innerWidth <= 768) return; // Skip on mobile
+  try {
+    if (typeof THREE === 'undefined') throw new Error('Three.js not loaded');
+    const canvas = document.getElementById('3d-canvas');
+    if (!canvas) throw new Error('3D canvas not found');
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+    for (let i = 0; i < 10; i++) { // Reduced for perf
+      const cube = new THREE.Mesh(geometry, material);
+      cube.position.set((Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100);
+      scene.add(cube);
+    }
+    camera.position.z = 50;
+    console.log('3D Cubes initialized'); // Debug
+    animate3D();
+  } catch (e) {
+    console.error('3D init error:', e);
+  }
+}
 function animate3D() {
+  if (!scene || !renderer) return;
   requestAnimationFrame(animate3D);
   scene.children.forEach(child => {
     child.rotation.x += 0.005;
@@ -368,13 +421,6 @@ function animate3D() {
   });
   renderer.render(scene, camera);
 }
-animate3D();
-
-// AR Toggle
-document.querySelector('.ar-hint').addEventListener('click', () => {
-  const arScene = document.getElementById('ar-scene');
-  arScene.style.display = arScene.style.display === 'none' ? 'block' : 'none';
-});
 
 // Chat and Search
 let conversationHistory = [];
@@ -392,7 +438,7 @@ function speakText(text) {
   }
 }
 
-// Enhanced search function (محدث للاتصال بالخادم الخلفي /search)
+// Enhanced search function (deeper snippets, better error handling)
 async function searxSearch(query) {
   const lowerQuery = query.toLowerCase();
   if (lowerQuery.includes('hello') || lowerQuery.includes('hi') || lowerQuery.includes('how are you') || lowerQuery.includes('ازيك') || lowerQuery.includes('مرحبا')) {
@@ -400,22 +446,24 @@ async function searxSearch(query) {
   }
 
   try {
-    // الاتصال بالخادم الخلفي (بدون CORS مشكلة لأنه من نفس الدومين)
-    const backendUrl = '/search';  // أو 'https://mgzon-mgzon-app.hf.space/search' لو على HF
+    const backendUrl = 'https://mgzon-mgzon-app.hf.space/search';
     const response = await fetch(`${backendUrl}?q=${encodeURIComponent(query)}`, {
-      headers: { 'Accept': 'application/json' }
+      method: 'GET',
+      headers: { 'Accept': 'application/json' },
+      mode: 'cors' // Explicit CORS
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
+    console.log('Search response:', data); // Debug
     if (data.success && data.results && data.results.length > 0) {
       const resultsText = data.results.map((result, i) => 
-        `Result ${i + 1}:\nTitle: ${result.title}\nLink: ${result.link}\nContent: ${result.content.substring(0, 200)}...`
+        `Result ${i + 1}:\nTitle: ${result.title}\nLink: ${result.link}\nContent: ${result.content.substring(0, 500)}...` // Even deeper snippet
       ).join('\n\n');
       return { success: true, text: translations[currentLang].searchPrefix + '\n\n' + resultsText };
     }
     return { success: false, text: translations[currentLang].searchError };
   } catch (err) {
-    console.log(`Search failed: ${err.message}`);
+    console.error(`Search failed: ${err.message}`); // Debug
     return { success: false, text: translations[currentLang].searchError };
   }
 }
@@ -448,77 +496,110 @@ function updateChatDisplay(userText, botText) {
   gsap.from(popup, { scale: 0.8, opacity: 0, duration: 0.5 });
 }
 
-// Search Input
-document.getElementById('search-input').addEventListener('keypress', async (e) => {
-  if (e.key === 'Enter') {
-    const query = e.target.value;
+// Search Input and Chat (wrapped in DOMContentLoaded)
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('search-input');
+  const voiceToggle = document.getElementById('voice-toggle');
+  const sendChat = document.getElementById('send-chat');
+  const chatInput = document.getElementById('chat-input');
+
+  searchInput.addEventListener('keypress', async (e) => {
+    if (e.key === 'Enter') {
+      const query = e.target.value.trim();
+      if (query) {
+        voiceToggle.classList.add('loading'); // Show spinner
+        conversationHistory.push({ role: 'user', text: query });
+        const reply = await getBotResponse(query);
+        conversationHistory.push({ role: 'assistant', text: reply });
+        updateChatDisplay(query, reply);
+        e.target.value = '';
+        voiceToggle.classList.remove('loading');
+      }
+    }
+  });
+
+  // Chat Send
+  sendChat.addEventListener('click', async () => {
+    const query = chatInput.value.trim();
     if (query) {
+      voiceToggle.classList.add('loading');
       conversationHistory.push({ role: 'user', text: query });
       const reply = await getBotResponse(query);
       conversationHistory.push({ role: 'assistant', text: reply });
       updateChatDisplay(query, reply);
-      e.target.value = '';
+      chatInput.value = '';
+      voiceToggle.classList.remove('loading');
     }
-  }
+  });
+
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendChat.click();
+  });
+
+  // Global functions for onclick
+  window.closePopup = () => {
+    document.getElementById('gemini-popup').style.display = 'none';
+  };
+
+  window.togglePanel = (id) => {
+    const panel = document.getElementById(id + '-panel');
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+  };
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    if (camera) {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      if (renderer) renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    // Re-init visuals if desktop
+    if (window.innerWidth > 768) {
+      init3D();
+      initParticles();
+      initOrb();
+    }
+  });
 });
 
-// Chat Send
-document.getElementById('send-chat').addEventListener('click', async () => {
-  const query = document.getElementById('chat-input').value;
-  if (query) {
-    conversationHistory.push({ role: 'user', text: query });
-    const reply = await getBotResponse(query);
-    conversationHistory.push({ role: 'assistant', text: reply });
-    updateChatDisplay(query, reply);
-    document.getElementById('chat-input').value = '';
-  }
-});
-
-document.getElementById('chat-input').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') document.getElementById('send-chat').click();
-});
-
-function closePopup() {
-  document.getElementById('gemini-popup').style.display = 'none';
-}
-
-function togglePanel(id) {
-  const panel = document.getElementById(id + '-panel');
-  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-}
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-// Enhanced Voice Recognition (Non-continuous, with repeat filter)
+// Enhanced Voice Recognition (with one-time permission)
 const voiceBtn = document.getElementById('voice-toggle');
 const statusDiv = document.getElementById('voice-status');
 let recognition;
 let isListening = false;
 let lastTranscript = '';
+let permissionGranted = localStorage.getItem('voicePermission') === 'true';
+
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-if (SpeechRecognition) {
+if (SpeechRecognition && (permissionGranted || navigator.userAgent.includes('Chrome') || navigator.userAgent.includes('Safari'))) {
   recognition = new SpeechRecognition();
   recognition.lang = currentLang === 'ar' ? 'ar-SA' : currentLang === 'fr' ? 'fr-FR' : currentLang === 'de' ? 'de-DE' : 'en-US';
   recognition.continuous = false;
   recognition.interimResults = false;
+
+  // Auto-grant permission after first success
+  if (!permissionGranted) {
+    recognition.onstart = () => {
+      localStorage.setItem('voicePermission', 'true');
+      permissionGranted = true;
+    };
+  }
 
   recognition.onstart = () => {
     isListening = true;
     voiceBtn.classList.add('listening');
     statusDiv.style.display = 'block';
     statusDiv.textContent = translations[currentLang].voiceStatus || 'Listening...';
+    console.log('Voice started'); // Debug
   };
 
   recognition.onresult = async (event) => {
     const transcript = event.results[0][0].transcript;
-    if (transcript === lastTranscript) return; // Prevent duplicates
+    if (transcript === lastTranscript) return;
     lastTranscript = transcript;
     statusDiv.textContent = `Heard: ${transcript}`;
+    console.log('Voice transcript:', transcript); // Debug
     conversationHistory.push({ role: 'user', text: transcript });
     const reply = await getBotResponse(transcript);
     conversationHistory.push({ role: 'assistant', text: reply });
@@ -526,6 +607,7 @@ if (SpeechRecognition) {
   };
 
   recognition.onerror = (event) => {
+    console.error('Voice error:', event.error); // Debug
     statusDiv.textContent = `Error: ${event.error}. Try again!`;
     isListening = false;
     voiceBtn.classList.remove('listening');
@@ -549,11 +631,10 @@ if (SpeechRecognition) {
 
   voiceBtn.title = translations[currentLang].voiceTitle || 'Press to speak';
 } else {
+  // Fallback
   voiceBtn.disabled = true;
-  voiceBtn.title = 'Voice not supported. Use Chrome!';
+  voiceBtn.title = 'Voice not supported. Use text input or Chrome!';
   statusDiv.style.display = 'block';
-  statusDiv.textContent = 'Voice not supported – Use Chrome!';
+  statusDiv.textContent = 'Voice not supported – Use text or Chrome!';
+  console.warn('Voice not supported'); // Debug
 }
-
-// Initialize
-switchLanguage(currentLang);

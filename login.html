@@ -10,6 +10,7 @@
     <title>Login - MGZon Chatbot</title>
     <link rel="manifest" href="/static/manifest.json">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/images/mg.svg">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/static/sitemap.xml" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MGZon">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -17,7 +18,7 @@
     <meta property="og:title" content="Login - MGZon Chatbot">
     <meta property="og:description" content="Login to MGZon Chatbot to access AI-powered code generation and e-commerce tools.">
     <meta property="og:image" content="/static/images/mg.svg">
-    <meta property="og:url" content="https://mgzon-mgzon-app.hf.space/login">
+    <meta property="og:url" content="https://mgzonai.vercel.app/login">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Login - MGZon Chatbot">
@@ -28,13 +29,13 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Login - MGZon Chatbot",
-      "url": "https://mgzon-mgzon-app.hf.space/login",
+      "url": "https://mgzonai.vercel.app/login",
       "description": "Login to MGZon Chatbot to access AI-powered code generation and e-commerce tools. Sign in with email, Google, or GitHub.",
       "keywords": ["MGZon Chatbot", "login", "AI chatbot", "code generation", "e-commerce", "Mark Al-Asfar", "MGZon", "MGZon AI", "E-commerce chatbot", "Python AI chatbot", "FastAPI integration"],
       "isPartOf": {
         "@type": "WebSite",
         "name": "MGZon Chatbot",
-        "url": "https://mgzon-mgzon-app.hf.space/"
+        "url": "https://mgzonai.vercel.app/"
       }
     }
     </script>
@@ -279,7 +280,7 @@
             Login to MGZon Chatbot
         </h1>
         <div class="glass p-8 max-w-md w-full" style="animation: fadeIn 1s ease-out 0.6s both;">
-            <form id="loginForm" action="/auth/jwt/login" method="POST" class="flex flex-col gap-4">
+            <form id="loginForm" action="https://mgzon-mgzon-app.hf.space/auth/jwt/login" method="POST" class="flex flex-col gap-4">
                 <input type="email" name="username" id="email" placeholder="Email" class="input-field" required>
                 <input type="password" name="password" id="password" placeholder="Password" class="input-field" required>
                 <button type="submit" id="loginBtn" class="login-button">
@@ -368,8 +369,8 @@
                 </div>
             </div>
             <div class="flex justify-center gap-6 mt-6">
-                <a href="https://github.com/Mark-Lasfar/MGZon" class="text-2xl text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-github"></i></a>
-                <a href="https://x.com/MGZon" class="text-2xl text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-twitter"></i></a>
+                <a href="https://github.com/Mark-Lasfar/mgpt" class="text-2xl text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-github"></i></a>
+                <a href="https://x.com/mgz0n" class="text-2xl text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-twitter"></i></a>
                 <a href="https://www.facebook.com/people/Mark-Al-Asfar/pfbid02GMisUQ8AqWkNZjoKtWFHH1tbdHuVscN1cjcFnZWy9HkRaAsmanBfT6mhySAyqpg4l/" class="text-2xl text-[hsl(var(--foreground))] hover:text-[hsl(var(--primary))] transition"><i class="bx bxl-facebook"></i></a>
             </div>
             <p class="mt-6 text-center">© 2025 Mark Al-Asfar & MGZon AI. All rights reserved.</p>
@@ -435,7 +436,7 @@
         return false;
     }
     try {
-        const response = await fetch('/api/verify-token', {
+        const response = await fetch('https://mgzon-mgzon-app.hf.space/api/verify-token', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -480,7 +481,7 @@ const githubLoginBtn = document.getElementById('githubLoginBtn');
         errorMsg.classList.add('hidden');
         const formData = new FormData(loginForm);
         try {
-            const response = await fetch('/auth/jwt/login', {
+            const response = await fetch('https://mgzon-mgzon-app.hf.space/auth/jwt/login', {
                 method: 'POST',
                 body: formData
             });
@@ -513,7 +514,7 @@ if (googleLoginBtn) {
         spinner.classList.remove('hidden');
         errorMsg.classList.add('hidden');
         try {
-            const response = await fetch('/auth/google/authorize', {
+            const response = await fetch('https://mgzon-mgzon-app.hf.space/auth/google/authorize', {
                 method: 'GET',
                 headers: { 'Accept': 'application/json' }
             });
@@ -544,7 +545,7 @@ if (githubLoginBtn) {
         spinner.classList.remove('hidden');
         errorMsg.classList.add('hidden');
         try {
-            const response = await fetch('/auth/github/authorize', {
+            const response = await fetch('https://mgzon-mgzon-app.hf.space/auth/github/authorize', {
                 method: 'GET',
                 headers: { 'Accept': 'application/json' }
             });

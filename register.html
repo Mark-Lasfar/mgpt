@@ -10,6 +10,7 @@
     <title>Register - MGZon Chatbot</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="apple-touch-icon" href="/static/images/mg.svg">
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/static/sitemap.xml" />
     <link rel="manifest" href="/static/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="MGZon">
@@ -18,7 +19,7 @@
     <meta property="og:title" content="Register - MGZon Chatbot">
     <meta property="og:description" content="Register for MGZon Chatbot to access AI-powered code generation and e-commerce tools.">
     <meta property="og:image" content="/static/images/mg.svg">
-    <meta property="og:url" content="https://mgzon-mgzon-app.hf.space/register">
+    <meta property="og:url" content="https://mgzonai.vercel.app/register">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Register - MGZon Chatbot">
@@ -29,13 +30,13 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Register - MGZon Chatbot",
-      "url": "https://mgzon-mgzon-app.hf.space/register",
+      "url": "https://mgzonai.vercel.app/register",
       "description": "Register for MGZon Chatbot to access AI-powered code generation and e-commerce tools. Sign up with email, Google, or GitHub.",
       "keywords": ["MGZon Chatbot", "register", "sign up", "AI chatbot", "code generation", "e-commerce", "Mark Al-Asfar", "MGZon", "MGZon AI", "E-commerce chatbot", "Python AI chatbot", "FastAPI integration"],
       "isPartOf": {
         "@type": "WebSite",
         "name": "MGZon Chatbot",
-        "url": "https://mgzon-mgzon-app.hf.space/"
+        "url": "https://mgzonai.vercel.app/"
       }
     }
     </script>
@@ -280,7 +281,7 @@
             Register for MGZon Chatbot
         </h1>
         <div class="glass p-8 max-w-md w-full" style="animation: fadeIn 1s ease-out 0.6s both;">
-            <form id="registerForm" action="/auth/register" method="POST" class="flex flex-col gap-4">
+            <form id="registerForm" action="https://mgzon-mgzon-app.hf.space/auth/register" method="POST" class="flex flex-col gap-4">
                 <input type="text" name="username" id="username" placeholder="Username" class="input-field" required>
                 <input type="email" name="email" id="email" placeholder="Email" class="input-field" required>
                 <input type="password" name="password" id="password" placeholder="Password" class="input-field" required>
@@ -290,10 +291,10 @@
                 </button>
             </form>
             <div class="flex justify-center gap-4 mt-4 flex-wrap">
-                <a href="/auth/google/authorize" class="register-button inline-flex items-center">
+                <a href="https://mgzon-mgzon-app.hf.space/auth/google/authorize" class="register-button inline-flex items-center">
                     Sign Up with Google <i class="bx bxl-google ml-2"></i>
                 </a>
-                <a href="/auth/github/authorize" class="register-button inline-flex items-center">
+                <a href="https://mgzon-mgzon-app.hf.space/auth/github/authorize" class="register-button inline-flex items-center">
                     Sign Up with GitHub <i class="bx bxl-github ml-2"></i>
                 </a>
             </div>
@@ -443,7 +444,7 @@
             errorMsg.classList.add('hidden');
             const formData = new FormData(registerForm);
             try {
-                const response = await fetch('/auth/register', {
+                const response = await fetch('https://mgzon-mgzon-app.hf.space/auth/register', {
                     method: 'POST',
                     body: formData
                 });
