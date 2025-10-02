@@ -1,15 +1,21 @@
 {
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/profile", "destination": "/profile.html" },
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/chat", "destination": "/chat.html" },
-    { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/docs", "destination": "/docs.html" },
-    { "source": "/register", "destination": "/register.html" },
-    { "source": "/login", "destination": "/login.html" }
-  ],
+"rewrites": [
+  { "source": "/", "destination": "/index.html" },
+  { "source": "/profile", "destination": "/profile.html" },
+  { "source": "/about", "destination": "/about.html" },
+  { "source": "/chat", "destination": "/chat.html" },
+  { "source": "/blog", "destination": "/blog.html" },
+  { "source": "/docs", "destination": "/docs.html" },
+  { "source": "/register", "destination": "/register.html" },
+  { "source": "/login", "destination": "/login.html" },
+
+  { "source": "/favicon.ico", "destination": "/static/images/favicon.ico" },
+  { "source": "/manifest.json", "destination": "/static/manifest.json" },
+  { "source": "/robots.txt", "destination": "/static/robots.txt" },
+  { "source": "/sitemap.xml", "destination": "/static/sitemap.xml" }
+]
+,
   "redirects": [
     { "source": "/home", "destination": "/", "permanent": true }
   ],
