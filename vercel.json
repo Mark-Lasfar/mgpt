@@ -10,7 +10,7 @@
   { "source": "/register", "destination": "/register.html" },
   { "source": "/login", "destination": "/login.html" },
 
-  { "source": "/favicon.ico", "destination": "/static/images/favicon.ico" },
+  { "source": "/favicon.ico", "destination": "/static/favicon.ico" },
   { "source": "/manifest.json", "destination": "/static/manifest.json" },
   { "source": "/robots.txt", "destination": "/static/robots.txt" },
   { "source": "/sitemap.xml", "destination": "/static/sitemap.xml" }
