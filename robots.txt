@@ -1,9 +1,9 @@
 User-agent: *
 Allow: /
 
-Allow: /static/robots.txt
-Allow: /static/sitemap.xml
-Allow: /static/favicon.ico
+Allow: /robots.txt
+Allow: /sitemap.xml
+Allow: /favicon.ico
 Allow: /static/css/
 Allow: /static/images/
 Allow: /static/js/
